@@ -42,3 +42,11 @@ To set up your project:
 
 Remove the instruction text above and complete this README.md using the guidance in the coursework specification.
 
+## target audience description
+![Persona](Persona.jpg)
+
+## Questions to be answered using the dataset
+* What is the relationship between number of bikes rented
+ per hour and the weather conditions?
+* How has the bike rent counts changed over time?
+* Does the total number of bikes rented vary with seasons?
