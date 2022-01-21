@@ -50,3 +50,19 @@ Remove the instruction text above and complete this README.md using the guidance
  per hour and the weather conditions?
 * How has the bike rent counts changed over time?
 * Does the total number of bikes rented vary with seasons?
+
+## Html design
+codecademy Introduction to HTML
+https://www.codecademy.com/courses/learn-html/lessons/intro-to-html/exercises/anatomy-html
+
+The best way to ensure that all your HTML renders the same way in all browsers is to ensure that your elements remain within the opening and closing body tags.
+
+
+
+HTML is organized as a collection of family tree relationships. As you saw in the last exercise, we placed <p> tags within <body> tags. When an element is contained inside another element, it is considered the child of that element. The child element is said to be nested inside of the parent element.
+
+How do we know which heading element to pick?
+https://discuss.codecademy.com/t/how-do-we-know-which-heading-element-to-pick/297365
+
+Learn Color Design
+https://www.codecademy.com/learn/learn-color-design
