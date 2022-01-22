@@ -66,3 +66,11 @@ https://discuss.codecademy.com/t/how-do-we-know-which-heading-element-to-pick/29
 
 Learn Color Design
 https://www.codecademy.com/learn/learn-color-design
+
+Responsive Design
+(s: how can we ensure that a website is readable and visually appealing across all devices, regardless of screen size?)
+https://www.codecademy.com/courses/learn-responsive-design/lessons/sizing-elements/exercises/relative-measurements
+
+
+Dash tutorial
+https://www.youtube.com/watch?v=hSPmj7mK6ng
