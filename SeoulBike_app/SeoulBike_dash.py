@@ -16,7 +16,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 # assume you have a "long-form" data frame see https://plotly.com/python/px-arguments/ for more options
 
 # ------Import data for visualization------
-df = pd.read_csv('Prepared_data.csv')
+df = pd.read_csv('data/Prepared_data.csv')
 print(df[:5])  # df.head()
 Date=px.bar(df,x="Date", y="Rented Bike Count")
 app.layout = html.Div(children=[
