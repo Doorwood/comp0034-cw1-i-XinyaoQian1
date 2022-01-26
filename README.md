@@ -74,3 +74,6 @@ https://www.codecademy.com/courses/learn-responsive-design/lessons/sizing-elemen
 
 Dash tutorial
 https://www.youtube.com/watch?v=hSPmj7mK6ng
+
+Interactive python dashboards | Plotly Dash 2022| 3 Projects
+https://www.udemy.com/cart/success/730687358/

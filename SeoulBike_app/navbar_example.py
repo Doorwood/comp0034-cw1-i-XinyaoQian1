@@ -3,17 +3,12 @@
 # @Time    :    22/01/2022 23:03
 # @Author  :    Xinyao Qian
 # @SN      :    19021373
-# @Description:
+# @Description: 
 """
-# Copied from the Dash tutorial documentation at https://dash.plotly.com/layout on 24/05/2021
-# Import section modified 10/10/2021 to comply with changes in the Dash library.
 
-# Run this app with `python SeoulBike_dash.py` and visit http://127.0.0.1:8050/ in your web browser.
 import dash
-from dash import html, dcc
 import dash_bootstrap_components as dbc
-import pandas as pd
-import plotly.express as px
+from dash import html
 from dash.dependencies import Output, Input, State
 
 PLOTLY_LOGO = "https://s2.loli.net/2022/01/21/bl8ZS5vzwjA3YaM.png"
@@ -23,7 +18,6 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets,
                 meta_tags=[{'name': 'viewport',
                             'content': 'width=device-width, initial-scale=1.0'}]
                 )
-# Search bar
 search_bar = dbc.Row(
     [
         dbc.Col(dbc.Input(type="search", placeholder="Search")),
@@ -77,50 +71,11 @@ navbar = dbc.Navbar(
     color="dark",
     dark=True,
 )
-
-# assume you have a "long-form" data frame see https://plotly.com/python/px-arguments/ for more options
-
-# ------Import data for visualization------
-df = pd.read_csv('data/Prepared_data.csv')
-print(df[:5])  # df.head()
-
-line_fig1 = px.line(df, x='Temperature',y='Rented Bike Count')
-
-seasons = df.groupby('Seasons')['Rented Bike Count'].sum().reset_index(name ='Total Amount')
-season_total_bar=px.bar(seasons,x='Seasons',y='Total Amount',title='Seasonal Rent amount')
-hour = df.groupby('Hour').sum()['Rented Bike Count'].reset_index(name ='Total Amount')
-
-hour_toal_line=px.line(hour,x='Hour',y='Total Amount',title='fig2')
-hour_toal_bar =px.bar(hour,x='Hour',y='Total Amount',title='fig3')
-Hour_line=html.Div(
-    children=dcc.Graph(
-        id='hour amount1',
-        figure=hour_toal_line,
-
-    )
-)
-
-hour_bar=html.Div(
-    children=dcc.Graph(
-        id='hour amount2',
-        figure=hour_toal_bar,
-    )
-)
-
-season_bar= html.Div(children=dcc.Graph(
-    id='seasonal amount',
-    figure=season_total_bar,
-
-)
-
-)
-title=html.H1(children='DATA DASHBOARD', style={'text-align':'center'})
-# row of graphs
-
 row1 = dbc.Row([  # row1
-    dbc.Col(season_bar, width=6),
-    dbc.Col(Hour_line, width=3),
-    dbc.Col(hour_bar, width=3),
+    dbc.Col('Column 1', width=6),
+    dbc.Col('Column 2', width=3),
+    dbc.Col('Column 3', width=3),
+    html.Div(children='hello'),
 
 ])
 row2 = dbc.Row([  # row2
@@ -128,12 +83,25 @@ row2 = dbc.Row([  # row2
     dbc.Col('Column 2', width=4),
     dbc.Col('Column 3', width=3),
 ])
-app.layout = html.Div(children=[
+app.layout = dbc.Container([
     navbar,
-    title,
     row1,
     row2,
+
 ])
+
+
+# add callback for toggling the collapse on small screens
+@app.callback(
+    Output("navbar-collapse", "is_open"),
+    [Input("navbar-toggler", "n_clicks")],
+    [State("navbar-collapse", "is_open")],
+)
+def toggle_navbar_collapse(n, is_open):
+    if n:
+        return not is_open
+    return is_open
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
