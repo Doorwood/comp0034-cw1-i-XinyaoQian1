@@ -14,10 +14,12 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 from dash.dependencies import Output, Input, State
 
 PLOTLY_LOGO = "https://s2.loli.net/2022/01/21/bl8ZS5vzwjA3YaM.png"
-external_stylesheets = [dbc.themes.BOOTSTRAP, ]
+external_stylesheets = [dbc.themes.ZEPHYR, ]
+
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets,
                 # make it responsive to mobile
                 meta_tags=[{'name': 'viewport',
@@ -82,57 +84,122 @@ navbar = dbc.Navbar(
 
 # ------Import data for visualization------
 df = pd.read_csv('data/Prepared_data.csv')
-print(df[:5])  # df.head()
-
-line_fig1 = px.line(df, x='Temperature',y='Rented Bike Count')
 
 seasons = df.groupby('Seasons')['Rented Bike Count'].sum().reset_index(name ='Total Amount')
-season_total_bar=px.bar(seasons,x='Seasons',y='Total Amount',title='Seasonal Rent amount')
 hour = df.groupby('Hour').sum()['Rented Bike Count'].reset_index(name ='Total Amount')
+temp_rent = df.groupby('Temperature').mean()['Rented Bike Count'].reset_index(name ='Rented Bike Count')
 
-hour_toal_line=px.line(hour,x='Hour',y='Total Amount',title='fig2')
-hour_toal_bar =px.bar(hour,x='Hour',y='Total Amount',title='fig3')
-Hour_line=html.Div(
-    children=dcc.Graph(
-        id='hour amount1',
-        figure=hour_toal_line,
+#Temperature line plot
+temp_line=px.line(temp_rent,x='Temperature',y='Rented Bike Count',title='Rented Bike Count vs Temperature')
+temp_line.update_layout(title_text='Your title', title_x=0.5)
+#Season bar plot
+season_total_bar=px.bar(seasons,x='Seasons',y='Total Amount')
+season_total_bar.update_layout(title_text='Your title', title_x=0.5)
+# Hourly line and bar plot
+hour_line_bar = go.Figure()
+hour_line_bar.add_trace(
+    go.Scatter(
+        x=hour['Hour'],
+        y=hour['Total Amount'],
+    ))
 
-    )
+hour_line_bar.add_trace(
+    go.Bar(
+        x=hour['Hour'],
+        y=hour['Total Amount'],
+    ))
+hour_line_bar.update_layout(
+    title={
+        'text': "Plot Title",
+        'y':0.9,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'})
+
+# Day and Night Pie plot
+day_pie = go.Figure(data=[go.Pie(labels=df['Day_night'], values=df['Rented Bike Count'])])
+day_pie.update_traces(hole=.4, hoverinfo="label+percent+name")
+#day_pie.update_layout(title='Title')
+
+day_pie.update_layout(
+    title={
+        'text': "Plot Title",
+        'y':0.9,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'})
+
+
+
+#Elements in layout
+title=html.H1(
+    children='DATA DASHBOARD',
+    style={'text-align':'center'}
 )
 
-hour_bar=html.Div(
+day_night_pie = html.Div(
     children=dcc.Graph(
-        id='hour amount2',
-        figure=hour_toal_bar,
+        id='day pie',
+        figure=day_pie,
     )
 )
+bar_line=html.Div(
+    children=dcc.Graph(
+        id='bar_line',
+        figure=hour_line_bar,
+    )
 
-season_bar= html.Div(children=dcc.Graph(
+)
+
+season_bar= html.Div(
+    children=dcc.Graph(
     id='seasonal amount',
     figure=season_total_bar,
 
+))
+temperature_line=html.Div(
+    children=dcc.Graph(
+        id='temp_line',
+        figure=temp_line,
+)
 )
 
+card = dbc.Card(
+    [
+        dbc.CardImg(src="/static/images/placeholder286x180.png", top=True),
+        dbc.CardBody(
+            [
+                html.H4("Card title", className="card-title"),
+                html.P(
+                    "Some quick example text to build on the card title and "
+                    "make up the bulk of the card's content.",
+                    className="card-text",
+                ),
+                dbc.Button("Go somewhere", color="primary"),
+            ]
+        ),
+    ],
+    style={"width": "30rem"},
 )
-title=html.H1(children='DATA DASHBOARD', style={'text-align':'center'})
 # row of graphs
 
 row1 = dbc.Row([  # row1
-    dbc.Col(season_bar, width=6),
-    dbc.Col(Hour_line, width=3),
-    dbc.Col(hour_bar, width=3),
+    dbc.Col(bar_line, width=6),
+    dbc.Col(day_night_pie, width=3),
+    dbc.Col(season_bar, width=3),
 
 ])
 row2 = dbc.Row([  # row2
-    dbc.Col('Column 1', width=5),
-    dbc.Col('Column 2', width=4),
-    dbc.Col('Column 3', width=3),
+    dbc.Col(temperature_line, width=5),
+    dbc.Col('Figure Expected ', width=4),
+    dbc.Col('Figure Expected', width=3),
 ])
 app.layout = html.Div(children=[
     navbar,
     title,
     row1,
     row2,
+    #card,
 ])
 
 if __name__ == '__main__':
