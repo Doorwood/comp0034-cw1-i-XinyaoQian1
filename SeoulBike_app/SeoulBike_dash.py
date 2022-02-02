@@ -194,13 +194,23 @@ row2 = dbc.Row([  # row2
     dbc.Col('Figure Expected ', width=4),
     dbc.Col('Figure Expected', width=3),
 ])
+
+
 app.layout = html.Div(children=[
     navbar,
     title,
     row1,
     row2,
     #card,
+    html.Button(id = 'html-button', children = 'Click the button !', n_clicks = 0),
+    html.Div(id='output-text'),
 ])
+
+@app.callback(Output(component_id='output-text',component_property='children'),
+              Input(component_id='html-button',component_property='n_clicks'))
+def buttom_update(value):
+    return html.Div(str(value) + ' clicks !')
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
