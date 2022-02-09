@@ -29,6 +29,7 @@ class Data:
         self.df['Date'] = pd.to_datetime(self.df['Date'], format='%Y-%m-%d')
         self.df['month'] = self.df['Date'].dt.month
 
+
     def pre_process_data(self):
         self.daily_total = self.df.copy()
         self.daily_total = self.daily_total.groupby('Date')[
