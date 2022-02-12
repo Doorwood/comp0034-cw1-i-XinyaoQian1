@@ -3,11 +3,12 @@
 # @Time    :    03/02/2022 12:42
 # @Author  :    Xinyao Qian
 # @SN      :    19021373
-# @Description: 
+# @Description: Data class for processing required datasets
 """
 from pathlib import Path
 
 import pandas as pd
+import calendar
 
 
 class Data:
@@ -16,6 +17,7 @@ class Data:
         self.get_data()
         self.month = pd.DataFrame()
         self.daily_total = pd.DataFrame()
+        self.rent_total = pd.DataFrame()
         self.seasons_total = pd.DataFrame()
         self.temp_rent_mean = pd.DataFrame()
         self.hour = pd.DataFrame()
@@ -28,7 +30,6 @@ class Data:
         self.df = pd.read_csv(datafolder / csvfile)
         self.df['Date'] = pd.to_datetime(self.df['Date'], format='%Y-%m-%d')
         self.df['month'] = self.df['Date'].dt.month
-
 
     def pre_process_data(self):
         self.daily_total = self.df.copy()
@@ -49,6 +50,6 @@ class Data:
             name='Total Amount')
         self.working_hour = (self.month['Rented Bike Count'] != 0).sum()
         self.rent_total = \
-        self.month.loc[self.month['month'] == month].reset_index()[
-            'Rented Bike Count']
+            self.month.loc[self.month['month'] == month].reset_index()[
+                'Rented Bike Count']
         self.rent_daily = self.daily_total[self.daily_total['month'] == month]

@@ -11,7 +11,7 @@ from dash import html, dcc
 
 
 def nav_bar():
-    PLOTLY_LOGO = "https://s2.loli.net/2022/01/21/bl8ZS5vzwjA3YaM.png"
+    logo = "https://s2.loli.net/2022/01/21/bl8ZS5vzwjA3YaM.png"
     # Search bar
     search_bar = dbc.Row(
         [
@@ -31,17 +31,18 @@ def nav_bar():
         dbc.Container(
             [
                 html.A(
-                    # Use row and col to control vertical alignment of logo / brand
+                    # Use row and col to control vertical alignment of logo /
+                    # brand
                     dbc.Row(
                         [
-                            dbc.Col(html.Img(src=PLOTLY_LOGO, height="30px")),
+                            dbc.Col(html.Img(src=logo, height="30px")),
                             dbc.Col(dbc.NavbarBrand("Seoul Bike Company",
                                                     className="ms-2")),
                         ],
                         align="center",
                         className="g-0",
                     ),
-                    href="https://plotly.com",
+                    href="https://www.bikeseoul.com:457/main.do?lang=en",
                     style={"textDecoration": "none"},
                 ),
                 dbc.NavLink("View Profile", href="/l/components/nav",
@@ -69,7 +70,6 @@ def nav_bar():
     return navbar
 
 
-
 def dropdown(df):
     """
 
@@ -80,6 +80,11 @@ def dropdown(df):
         card-body containing two dropdowns
 
     """
+    month_name = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+         'August', 'September', 'October', 'November', 'December']
+    month_number= [1,2,3,4,5,6,7,8,9,10,11,12]
+    # Adapted from Online Course: Learn Bootstrap
+    # https://www.codecademy.com/learn/learn-bootstrap
     drp = [dbc.CardBody([
         html.H6('Select Months', style={'textAlign': 'center'}),
         dbc.Row([
@@ -87,8 +92,8 @@ def dropdown(df):
                 html.H6('Current Month'),
                 dcc.Dropdown(id='dropdown_base',
                              options=[
-                                 {'label': i, 'value': i} for i in
-                                 df['month'].unique()
+                                 {'label': i, 'value': j} for (i, j) in
+                                 zip(month_name, month_number)
                              ],
                              value=1,
                              )
@@ -97,8 +102,8 @@ def dropdown(df):
                 html.H6('Reference Month'),
                 dcc.Dropdown(id='dropdown_comp',
                              options=[
-                                 {'label': i, 'value': i} for i in
-                                 df['month'].unique()
+                                 {'label': i, 'value': j} for (i, j) in
+                                 zip(month_name, month_number)
                              ],
                              value=1,
                              )

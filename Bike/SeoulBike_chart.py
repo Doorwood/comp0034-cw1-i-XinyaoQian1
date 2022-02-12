@@ -3,11 +3,10 @@
 # @Time    :    03/02/2022 10:22
 # @Author  :    Xinyao Qian
 # @SN      :    19021373
-# @Description: 
+# @Description: Functions for creating visualizations in the SeoulBike dashboard
 """
 
 from pathlib import Path
-
 import plotly.express as px
 import plotly.graph_objs as go
 
@@ -24,9 +23,11 @@ def seasonal_bar_plot(data):
          bar plot of the data
     """
     # Season bar plot
-    season_total_bar = px.bar(data, x='Seasons', y='Total Amount')
+    season_total_bar = px.bar(data, x='Seasons', y='Total Amount',text ='Total Amount')
+    season_total_bar.update_traces(texttemplate='%{text:.2s}', textposition='outside')
     season_total_bar.update_layout(title_x=0.5, plot_bgcolor='rgba(0,0,0,0)',
-                                   paper_bgcolor='rgba(0,0,0,0)')
+                                   paper_bgcolor='rgba(0,0,0,0)',
+                                   )
     return season_total_bar
 
 
@@ -60,10 +61,13 @@ def daily_rents_bar_plot(data, month):
     day_bar = go.Figure([go.Bar(y=data['Date'],
                                 x=data['Rented Bike Count'],
                                 name='{}'.format(month),
-                                orientation='h'),
+                                orientation='h',
+
+                                ),
                          ])
     day_bar.update_layout(plot_bgcolor='rgba(0,0,0,0)',
                           paper_bgcolor='rgba(0,0,0,0)',
+
                           margin=dict(l=40, r=5, t=60, b=40),
                           )
     return day_bar
@@ -89,14 +93,14 @@ def pie_plot(data):
     return day_pie
 
 
-def hour_scatter_plot(base_data, comp_data, base, comparasion):
+def hour_scatter_plot(base_data, comp_data, base, comparison):
     """
 
     Args:
         base_data (data_frame):the dataframe for the first plot
         comp_data (data_frame):the dataframe for the second plot
         base (int): current month
-        comparasion (int): reference Month
+        comparison (int): reference Month
 
     Returns:
         scatter plot of two dataframes
@@ -104,9 +108,12 @@ def hour_scatter_plot(base_data, comp_data, base, comparasion):
     """
     fig = go.Figure(
         data=[go.Scatter(x=comp_data['Hour'], y=comp_data['Total Amount'],
-                         name='{}'.format(comparasion)),
+                         name='{}'.format(comparison),
+                         mode='lines+markers'),
               go.Scatter(x=base_data['Hour'], y=base_data['Total Amount'],
-                         name='{}'.format(base))])
+                         name='{}'.format(base),
+                         mode='lines+markers')]
+    )
     fig.update_layout(plot_bgcolor='rgba(0,0,0,0)',
                       paper_bgcolor='rgba(0,0,0,0)',
                       margin=dict(l=40, r=5, t=60, b=40),

@@ -3,8 +3,9 @@
 # @Time    :    02/02/2022 13:52
 # @Author  :    Xinyao Qian
 # @SN      :    19021373
-# @Description: 
+# @Description:   The main dash app structure.
 """
+
 from typing import Union, Any
 import dash
 import dash_bootstrap_components as dbc
@@ -30,10 +31,13 @@ static_data.pre_process_data()
 
 # ----------------------static data plot-------------------#
 
-season_total_bar: Union[Figure, Any] = Sc.seasonal_bar_plot(static_data.seasons_total)
+season_total_bar: Union[Figure, Any] = Sc.seasonal_bar_plot(
+    static_data.seasons_total)
 temp_line = Sc.temp_line_plot(static_data.temp_rent_mean)
-card_season = El.card('Seasonal Total', season_total_bar, '450px', '450px')
-card_temp = El.card('Average Rents vs Temperature', temp_line, '450px', '700px')
+card_season = El.card('Seasonal Total Bike Rent Count', season_total_bar,
+                      '450px', '450px')
+card_temp = El.card('Correlation between Temperature and Average Rented Bike '
+                    'Count', temp_line, '450px', '700px')
 
 # ----------------------app elements-------------------#
 navbar = El.nav_bar()
@@ -71,8 +75,11 @@ body_app = dbc.Container([
 ])
 # ----------------------app layout-------------------#
 app.layout = html.Div(id='parent',
-                      children=[navbar,
-                                body_app])
+                      children=
+                      [
+                          navbar,
+                          body_app
+                      ])
 
 
 # ----------------------app callbacks-------------------#
@@ -85,6 +92,27 @@ app.layout = html.Div(id='parent',
               [Input('dropdown_base', 'value'),
                Input('dropdown_comp', 'value')])
 def update_cards(current, reference):
+    """
+
+    Args:
+        current (int): current month
+        reference (int): referencing month
+
+    Returns:
+        card_content1:
+         shows month1's Total Rented Bike Count compare to that of month2
+        card_content2:
+         shows month1's functional hours versus total hours
+        card_content3:
+         shows month1's season
+        card_content4:
+         Scatter plot of month1 and month2's hourly rent trend
+        card_content5:
+         pie plot of month1's day-night rent distribution
+        card_content6:
+         compare month1 and month2's daily rents
+
+    """
     # ----------------------data processing-------------------#
     month1 = Data()  # current month
     month1.pre_process_data()
@@ -98,6 +126,10 @@ def update_cards(current, reference):
 
     monthly_difference = rent_number_1.sum() - month2.rent_total.sum()
     monthly_change = 0
+
+    # Adapted from Online Course: Interactive python dashboards | Plotly Dash
+    # 2022| 3 Projects
+    # https://www.udemy.com/course/plotly-dash-python-dashboards/
     if monthly_difference >= 0:
         monthly_change = dcc.Markdown(dangerously_allow_html=True,
                                       children=[
@@ -130,21 +162,6 @@ def update_cards(current, reference):
                                         reference)
 
     # ----------------------cards-------------------#
-    '''
-    card_content1:
-     shows month1's Total Rented Bike Count compare to that of month2
-    card_content2:
-     shows month1's functional hours versus total hours
-    card_content3:
-     shows month1's season
-    card_content4:
-     Scatter plot of month1 and month2's hourly rent trend
-    card_content5:
-     pie plot of month1's day-night rent distribution
-    card_content6:
-     compare month1 and month2's daily rents
-    
-    '''
 
     card_content1 = El.card_text('Total Rented Bike Count',
                                  rent_number_1.sum(), monthly_change)
@@ -153,12 +170,13 @@ def update_cards(current, reference):
     card_content3 = El.card_text('Current Season',
                                  base_month['Seasons'].iloc[0])
 
-    card_content4 = El.card('Total Sales', hour_scatter)
+    card_content4 = El.card('Hourly Rent Trend', hour_scatter)
     card_content5 = El.card('Day vs Night Rents', day_pie, )
-    card_content6 = El.card_double_figure('Daliy Rents', day_bar_base,
+    card_content6 = El.card_double_figure('Daily Rents', day_bar_base,
                                           day_bar_comp, )
 
-    return card_content1, card_content2, card_content3, card_content4, card_content5, card_content6
+    return card_content1, card_content2, card_content3, card_content4, \
+           card_content5, card_content6
 
 
 if __name__ == "__main__":
