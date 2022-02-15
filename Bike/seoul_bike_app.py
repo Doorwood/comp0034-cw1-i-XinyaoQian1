@@ -6,12 +6,11 @@
 # @Description:   The main dash app structure.
 """
 
-from typing import Union, Any
+
 import dash
 import dash_bootstrap_components as dbc
 from dash import html, dcc
 from dash.dependencies import Input, Output
-from plotly.graph_objs import Figure
 import seou_blike_chart as Sc
 import seoul_bike_elements as El
 from seoul_bike_data import Data
@@ -31,7 +30,7 @@ static_data.pre_process_data()
 
 # ----------------------static data plot-------------------#
 
-season_total_bar: Union[Figure, Any] = Sc.seasonal_bar_plot(
+season_total_bar= Sc.seasonal_bar_plot(
     static_data.seasons_total)
 temp_line = Sc.temp_line_plot(static_data.temp_rent_mean)
 card_season = El.card('Seasonal Total Bike Rent Count', season_total_bar,
