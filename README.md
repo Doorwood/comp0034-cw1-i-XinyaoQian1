@@ -1,10 +1,10 @@
+## URL
+https://github.com/ucl-comp0035/comp0034-cw1-i-XinyaoQian1.git
+
 ## LOGO
 ![logo](img/bike.png)
 
 For the navigation bar, a logo for the Seoul Bike Company was designed. It is white so only visible in dark mode in pycharm.
- ## LOGO
-
-A fake company logo was designed for the navigation bar.
 
 ## Layout Design
 
