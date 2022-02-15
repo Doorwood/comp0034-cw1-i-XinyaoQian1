@@ -1,5 +1,5 @@
 """
-# @File    :    SeoulBike_chart.py
+# @File    :    seou_blike_chart.py
 # @Time    :    03/02/2022 10:22
 # @Author  :    Xinyao Qian
 # @SN      :    19021373
@@ -60,7 +60,7 @@ def daily_rents_bar_plot(data, month):
     """
     day_bar = go.Figure([go.Bar(y=data['Date'],
                                 x=data['Rented Bike Count'],
-                                name='{}'.format(month),
+                                name=f'{month}',
                                 orientation='h',
 
                                 ),
@@ -108,10 +108,10 @@ def hour_scatter_plot(base_data, comp_data, base, comparison):
     """
     fig = go.Figure(
         data=[go.Scatter(x=comp_data['Hour'], y=comp_data['Total Amount'],
-                         name='{}'.format(comparison),
+                         name=f'{comparison}',
                          mode='lines+markers'),
               go.Scatter(x=base_data['Hour'], y=base_data['Total Amount'],
-                         name='{}'.format(base),
+                         name=f'{base}',
                          mode='lines+markers')]
     )
     fig.update_layout(plot_bgcolor='rgba(0,0,0,0)',

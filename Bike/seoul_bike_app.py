@@ -1,5 +1,5 @@
 """
-# @File    :    SeoulBike_app.py
+# @File    :    seoul_bike_app.py
 # @Time    :    02/02/2022 13:52
 # @Author  :    Xinyao Qian
 # @SN      :    19021373
@@ -12,9 +12,9 @@ import dash_bootstrap_components as dbc
 from dash import html, dcc
 from dash.dependencies import Input, Output
 from plotly.graph_objs import Figure
-import SeoulBike_elements as El
-import SeoulBike_chart as Sc
-from SeoulBike_data import Data
+import seou_blike_chart as Sc
+import seoul_bike_elements as El
+from seoul_bike_data import Data
 
 # ----------------------creat dash app-------------------#
 external_stylesheets = [dbc.themes.ZEPHYR, 'mystyles.css']
@@ -41,7 +41,7 @@ card_temp = El.card('Correlation between Temperature and Average Rented Bike '
 
 # ----------------------app elements-------------------#
 navbar = El.nav_bar()
-card_content_dropdwn = El.dropdown(static_data.df)
+card_content_dropdwn = El.dropdown()
 
 body_app = dbc.Container([
     html.Br(),
@@ -133,33 +133,30 @@ def update_cards(current, reference):
     if monthly_difference >= 0:
         monthly_change = dcc.Markdown(dangerously_allow_html=True,
                                       children=[
-                                          "<sub>+{0}</sub>".format(
-                                              monthly_difference)],
+                                          f"<sub>{monthly_difference}</sub>"
+                                      ],
                                       style={'textAlign': 'center'})
 
     elif monthly_difference < 0:
 
         monthly_change = dcc.Markdown(dangerously_allow_html=True,
                                       children=[
-                                          "<sub>{0}</sub>".format(
-                                              monthly_difference
-                                          )],
+                                          f"<sub>{monthly_difference}</sub>"
+                                      ],
                                       style={'textAlign': 'center'})
 
     total_hour = dcc.Markdown(dangerously_allow_html=True,
                               children=[
-                                  "<sub>/{0}</sub>".format(
-                                      base_month['Rented Bike Count'].count()
-                                  )],
+                                  f"<sub>/{base_month['Rented Bike Count'].count()}</sub>"],
                               style={'textAlign': 'center'})
 
     # ----------------------plot-------------------#
 
-    day_bar_base = Sc.daily_rents_bar_plot(month1.rent_daily, current)
-    day_bar_comp = Sc.daily_rents_bar_plot(month2.rent_daily, reference)
-    day_pie = Sc.pie_plot(base_month)
-    hour_scatter = Sc.hour_scatter_plot(month1.hour, month2.hour, current,
-                                        reference)
+    # day_bar_base = Sc.daily_rents_bar_plot(month1.rent_daily, current)
+    # day_bar_comp = Sc.daily_rents_bar_plot(month2.rent_daily, reference)
+    # day_pie = Sc.pie_plot(base_month)
+    # hour_scatter = Sc.hour_scatter_plot(month1.hour, month2.hour, current,
+    #                                     reference)
 
     # ----------------------cards-------------------#
 
@@ -170,10 +167,17 @@ def update_cards(current, reference):
     card_content3 = El.card_text('Current Season',
                                  base_month['Seasons'].iloc[0])
 
-    card_content4 = El.card('Hourly Rent Trend', hour_scatter)
-    card_content5 = El.card('Day vs Night Rents', day_pie, )
-    card_content6 = El.card_double_figure('Daily Rents', day_bar_base,
-                                          day_bar_comp, )
+    card_content4 = El.card('Hourly Rent Trend',
+                            Sc.hour_scatter_plot(month1.hour, month2.hour,
+                                                 current,
+                                                 reference))
+    card_content5 = El.card('Day vs Night Rents',
+                            Sc.pie_plot(base_month))
+    card_content6 = El.card_double_figure('Daily Rents',
+                                          Sc.daily_rents_bar_plot(
+                                              month1.rent_daily, current),
+                                          Sc.daily_rents_bar_plot(
+                                              month2.rent_daily, reference), )
 
     return card_content1, card_content2, card_content3, card_content4, \
            card_content5, card_content6

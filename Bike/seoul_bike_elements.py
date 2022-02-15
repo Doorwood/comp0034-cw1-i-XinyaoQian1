@@ -1,9 +1,9 @@
 """
-# @File    :    SeoulBike_elements.py
+# @File    :    seoul_bike_elements.py
 # @Time    :    03/02/2022 10:38
 # @Author  :    Xinyao Qian
 # @SN      :    19021373
-# @Description: 
+# @Description: Elements in dash app.
 """
 
 import dash_bootstrap_components as dbc
@@ -11,6 +11,11 @@ from dash import html, dcc
 
 
 def nav_bar():
+    """
+
+    Returns: navigation bar of the dash app
+
+    """
     logo = "https://s2.loli.net/2022/01/21/bl8ZS5vzwjA3YaM.png"
     # Search bar
     search_bar = dbc.Row(
@@ -70,19 +75,17 @@ def nav_bar():
     return navbar
 
 
-def dropdown(df):
+def dropdown():
     """
-
-    Args:
-        df (data_frame): dataframe to generate dropdown  options
 
     Returns:
         card-body containing two dropdowns
 
     """
-    month_name = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-         'August', 'September', 'October', 'November', 'December']
-    month_number= [1,2,3,4,5,6,7,8,9,10,11,12]
+    month_name = ['January', 'February', 'March', 'April', 'May', 'June',
+                  'July',
+                  'August', 'September', 'October', 'November', 'December']
+    month_number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     # Adapted from Online Course: Learn Bootstrap
     # https://www.codecademy.com/learn/learn-bootstrap
     drp = [dbc.CardBody([
@@ -132,7 +135,7 @@ def card_text(title, text, subtext=None):
             html.H6(title,
                     style={'fontWeight': 'lighter', 'textAlign': 'center'}),
 
-            html.H3('{0}'.format(text),
+            html.H3(f'{text}',
                     style={'color': '#090059', 'textAlign': 'center'}),
 
             subtext
