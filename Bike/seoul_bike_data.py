@@ -32,7 +32,7 @@ class Data:
         get data from csv file
 
         """
-        datafolder = Path('data')
+        datafolder = Path('../data')
         csvfile = 'Prepared_data.csv'
         self.data = pd.read_csv(datafolder / csvfile)
         self.data['Date'] = pd.to_datetime(self.data['Date'], format='%Y-%m-%d')

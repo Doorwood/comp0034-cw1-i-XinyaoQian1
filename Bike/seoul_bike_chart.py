@@ -1,5 +1,5 @@
 """
-# @File    :    seou_blike_chart.py
+# @File    :    seoul_bike_chart.py
 # @Time    :    03/02/2022 10:22
 # @Author  :    Xinyao Qian
 # @SN      :    19021373

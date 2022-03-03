@@ -11,7 +11,7 @@ import dash
 import dash_bootstrap_components as dbc
 from dash import html, dcc
 from dash.dependencies import Input, Output
-import seou_blike_chart as Sc
+import seoul_bike_chart as Sc
 import seoul_bike_elements as El
 from seoul_bike_data import Data
 
