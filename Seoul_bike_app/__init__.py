@@ -6,7 +6,9 @@
 # @Description: 
 """
 from flask import Flask
+from flask_wtf.csrf import CSRFProtect
 
+csrf = CSRFProtect()
 
 def create_app(config_class_name):
     """
@@ -16,16 +18,17 @@ def create_app(config_class_name):
     """
     app = Flask(__name__)
     app.config.from_object(config_class_name)
+    csrf.init_app(app)
     with app.app_context():
         # Import Dash application
         from Bike.dash_app import init_dashboard
         app = init_dashboard(app)
 
-    from Seoul_bike_app.auth.routes import auth_bp,main_bp,login_bp,signup_bp,blog_bp
+    from Seoul_bike_app.auth.routes import auth_bp
+    from Seoul_bike_app.main.routes import main_bp
     app.register_blueprint(auth_bp)
     app.register_blueprint(main_bp)
-    app.register_blueprint(login_bp)
-    app.register_blueprint(signup_bp)
-    app.register_blueprint(blog_bp)
+
+
 
     return app

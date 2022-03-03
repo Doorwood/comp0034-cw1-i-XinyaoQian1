@@ -6,34 +6,25 @@
 # @Description: 
 """
 # app.py
-from flask import Blueprint
 
-auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
-main_bp = Blueprint('main', __name__, url_prefix='/main')
-login_bp = Blueprint('login', __name__, url_prefix='/login')
-signup_bp = Blueprint('signup', __name__, url_prefix='/signup')
-blog_bp = Blueprint('blog', __name__, url_prefix='/blog')
+from flask import Blueprint, render_template, flash, redirect, url_for, request
+from .forms import SignupForm
 
-
-@auth_bp.route('/')
-def index():
-    return 'Hello World this is /auth/ section'
+auth_bp = Blueprint('auth', __name__)
+# main_bp = Blueprint('main', __name__, url_prefix='/main')
 
 
-@main_bp.route('/')
-def index():
-    return 'Hello World this is /main/ section'
 
-
-@login_bp.route('/')
+@auth_bp.route('/login')
 def login():
-    return 'Hello World this is login section'
+    return render_template('login.html')
 
-
-@signup_bp.route('/')
+@auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
-    return 'Hello World this is signup section'
+    form = SignupForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        return f"Hello, {name}. You are signed up."
+    return render_template('signup.html',title='Sign Up', form=form)
 
-@blog_bp.route('/')
-def blog():
-    return 'Hello World this is blog section'
+
