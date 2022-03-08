@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, request
 from sqlalchemy.exc import IntegrityError
 
-from example_app import db
-from auth.forms import SignupForm, LoginForm
-from models import User
+from example_app_final import db
+from example_app_final.auth.forms import SignupForm, LoginForm
+from example_app_final.models import User
 
 auth_bp = Blueprint('auth', __name__)
 

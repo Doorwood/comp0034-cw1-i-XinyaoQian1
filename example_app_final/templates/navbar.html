@@ -8,13 +8,14 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for("main.index") }}">Home</a>
+                    <a class="nav-link" href="{{ url_for("main.index")}}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Profiles</a>
+                    <a class="nav-link" href="{{url_for('auth.signup')}}">Profiles</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Dashboard</a>
+
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for("auth.signup") }}">Sign up</a>

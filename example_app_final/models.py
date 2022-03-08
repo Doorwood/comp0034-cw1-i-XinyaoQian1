@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from example_app import db
+from example_app_final import db
 
 
 class User(db.Model):

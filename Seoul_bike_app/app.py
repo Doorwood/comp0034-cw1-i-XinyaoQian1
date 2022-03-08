@@ -7,7 +7,10 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo
 # instantiate application and database
-app = Flask(__name__)
+from Seoul_bike_app import create_app
+from Seoul_bike_app.config import DevelopmentConfig
+
+app = create_app(DevelopmentConfig)
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///my_database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

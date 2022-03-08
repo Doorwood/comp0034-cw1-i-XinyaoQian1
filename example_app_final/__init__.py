@@ -19,13 +19,17 @@ def create_app(config_class_name):
     db.init_app(app)
 
     with app.app_context():
-        from example_app.models import User
-        db.create_all()
+        # Import Dash application
 
-    from example_app.main.routes import main_bp
+        from example_app_final.models import User
+        db.create_all()
+        from Bike.dash_app import init_dashboard
+        app = init_dashboard(app)
+
+    from example_app_final.main.routes import main_bp
     app.register_blueprint(main_bp)
 
-    from example_app.auth.routes import auth_bp
+    from example_app_final.auth.routes import auth_bp
     app.register_blueprint(auth_bp)
 
     return app
