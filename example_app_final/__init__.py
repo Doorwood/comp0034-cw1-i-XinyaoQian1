@@ -5,7 +5,7 @@ from flask_wtf.csrf import CSRFProtect
 
 csrf = CSRFProtect()
 db = SQLAlchemy()
-
+csrf._exempt_views.add('dash.dash.dispatch')
 
 def create_app(config_class_name):
     """
