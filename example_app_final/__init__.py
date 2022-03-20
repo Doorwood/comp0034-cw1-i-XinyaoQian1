@@ -22,7 +22,10 @@ def create_app(config_class_name):
         # Import Dash application
 
         from example_app_final.models import User
+        # from example_app_final import models
+        #creat table for the database
         db.create_all()
+
         from Bike.dash_app import init_dashboard
         app = init_dashboard(app)
 

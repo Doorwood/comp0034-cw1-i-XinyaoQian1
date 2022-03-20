@@ -5,6 +5,7 @@ from example_app_final import db
 
 class User(db.Model):
     __tablename__ = "user"
+    #fields in the table
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.Text, nullable=False)
     last_name = db.Column(db.Text, nullable=False)
