@@ -11,18 +11,39 @@
                     <a class="nav-link" href="{{ url_for("main.index")}}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('auth.signup')}}">Profiles</a>
+                    <a class="nav-link" href="{{url_for('auth.profile')}}">Profiles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/dash_app/">Dashboard</a>
+                    <a class="nav-link" href="/dash_app">Dashboard</a>
 
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for("auth.blog") }}">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for("auth.logout") }}">Logout</a>
+                </li>
+
+                <style>
+                    .new_search {
+                        position: fixed;
+                        right: 6%;
+                        top: 6%;
+                    }
+                </style>
+                <li class="nav-item new_search">
+                    <form action="{{ url_for("auth.blog") }}">
+                        <input name="search"><button>Search Blog</button>
+                    </form>
+                </li>
+
+<!--                <li class="nav-item">
                     <a class="nav-link" href="{{ url_for("auth.signup") }}">Sign up</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for("auth.signin") }}">Sign in</a>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>
