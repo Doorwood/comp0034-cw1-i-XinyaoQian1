@@ -12,8 +12,23 @@
 {% extends 'layout.html' %}
 {% from "_formhelpers.html" import render_field %}
 {% block content %}
-    <h1>{{ title }}</h1>
-    <p>This is the home page.</p>
+
+<!-- Header-->
+        <header class="bg-primary bg-gradient text-white">
+            <div class="container px-4 text-center">
+                <h1 class="fw-bolder">Welcome to Seoul Bike Company!</h1>
+                <p class="lead">Seoul Bike attempted to make the rental bike available and accessible to the public in Seoul.
+We are currently making an effort to provide the city with a stable supply of rental bikes :)</p>
+                <a class="btn btn-lg btn-light" href="/dash_app">Start browsing data!</a>
+            </div>
+        </header>
+
+
+
+        <!-- Footer-->
+        <footer class="py-5 ">
+            <div class="container px-4"><p class="m-0 text-center">Copyright &copy; SeoulBike 2022</p></div>
+        </footer>
 {% endblock %}
 
 </html>
