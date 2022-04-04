@@ -1,13 +1,12 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, EmailField, BooleanField
 from wtforms.validators import DataRequired, EqualTo
-from flask import flash
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, EmailField
 from wtforms.validators import DataRequired, EqualTo, ValidationError
 
-from example_app_final.models import User
+from seoul_bike_flask_app.models import User
 
 
 class SignupForm(FlaskForm):
@@ -32,14 +31,11 @@ class LoginForm(FlaskForm):
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is None:
-            flash('No account found with that email address.')
             raise ValidationError('No account found with that email address.')
 
     def validate_password(self, password):
         user = User.query.filter_by(email=self.email.data).first()
         if user is None:
-            flash('No account found with that email address.')
             raise ValidationError('No account found with that email address.')
         if not user.check_password(password.data):
-            flash('Incorrect password.')
             raise ValidationError('Incorrect password.')

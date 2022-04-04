@@ -13,7 +13,9 @@ class Config(object):
     '''
     SECRET_KEY = 'generate_a_secret_key'
     WTF_CSRF_SECRET_KEY = "crFAuXFCPKbKWw8JAKfnSA"
+    # don't track modifications
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # set up database location
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + str(pathlib.Path(__file__).parent.joinpath('my_example.sqlite'))
     TESTING = False
 

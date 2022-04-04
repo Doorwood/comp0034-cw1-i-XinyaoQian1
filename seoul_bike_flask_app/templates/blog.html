@@ -1,0 +1,78 @@
+{% extends 'blog_template.html' %}
+
+{% block content %}
+	<style>
+		.box_menu {
+			border: 1px solid;
+			padding: 7px;
+			display: flex;
+			margin-bottom: 2%;
+		}
+		.box_1 {
+			flex: 5;
+			border-right: 2px solid;
+    		margin-right: 10px;
+		}
+		.box_2 {
+			flex: 1;
+		}
+		.user_name {
+			border-bottom: 2px solid;
+			padding-bottom: 5px;
+		}
+		.my_btn {
+			text-align: center;
+			width: 10%;
+			/* height: 15%; */
+			border: 4px solid;
+			font-size: 30px;
+			text-decoration: none;
+			margin-right: 5%;
+			margin-left: 22%;
+		}
+		.my_btn:hover {
+			text-decoration: none
+		}
+	</style>
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="col-sm-10 col-sm-offset-1">
+				<div class="box_menu">
+					<a class="my_btn" href="{{ url_for('auth.submit_post') }}">+</a> <h1>Add New Blog</h1>
+				</div>
+			</div>
+			{% for blog in blogs %}
+			<div class="col-sm-10 col-sm-offset-1">
+				<div class="box_menu">
+					<div class="box_1">
+						Title: <a href="{{ url_for('auth.post_id',post_id=blog.id) }}">{{ blog.title }}</a>
+					</div>
+					<div class="box_2">
+						<div class="user_name">UserName: {{ blog.user_list.all()[0].email }}</div>
+						<div>Datetime: {{ blog.create_datetime|strf_datetime("%Y-%m-%d") }}</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+        		</div>
+
+
+
+
+        {% for blog in blogs %}
+        <div class="card " style="width: 60%;">
+      <div class="card-body">
+        <h5 class="card-title">Title: <a href="{{ url_for('auth.post_id',post_id=blog.id) }}">{{ blog.title }}</a></h5>
+        <p class="card-text">Datetime: {{ blog.create_datetime|strf_datetime("%Y-%m-%d") }}</p>
+          <div class="user_name">UserName: {{ blog.user_list.all()[0].email }}</div>
+      </div>
+<div class="mt-2 col-md-12">
+
+</div>
+
+    </div>
+
+        {% endfor %}
+
+	</section>
+{% endblock %}

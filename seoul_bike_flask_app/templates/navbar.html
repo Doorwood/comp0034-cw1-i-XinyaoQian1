@@ -29,15 +29,26 @@
                     .new_search {
                         position: fixed;
                         right: 6%;
-                        top: 6%;
+                        top: 4%;
                     }
                 </style>
-                <li class="nav-item new_search">
+{#                <li class="nav-item new_search">
                     <form action="{{ url_for("auth.blog") }}">
                         <input name="search"><button>Search Blog</button>
                     </form>
-                </li>
-
+                </li>#}
+<li class="nav-item new_search">
+<form action="{{ url_for("auth.blog") }}" class="pull-right">
+                <div class="input-group">
+  <div class="form-outline">
+    <input type="search" name="search" id="form1" class="form-control" />
+  </div>
+  <button type="submit" class="btn btn-primary">
+    <i class="fas fa-search"></i>Search Blog
+  </button>
+</div>
+</form>
+</li>
 <!--                <li class="nav-item">
                     <a class="nav-link" href="{{ url_for("auth.signup") }}">Sign up</a>
                 </li>
