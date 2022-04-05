@@ -2,9 +2,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager
-
+# from flask_uploads import UploadSet, IMAGES, configure_uploads
 csrf = CSRFProtect()
 db = SQLAlchemy()# database
+# photos = UploadSet('photos', IMAGES)
 csrf._exempt_views.add('dash.dash.dispatch')
 
 login_manager = LoginManager()
@@ -27,6 +28,7 @@ def create_app(config_class_name):
     app.config.from_object(config_class_name)
     csrf.init_app(app)
     db.init_app(app)
+    # configure_uploads(app, photos)
 
     login_manager.init_app(app)
 
