@@ -1,13 +1,12 @@
 {% extends 'blog_template.html' %}
 
 {% block content %}
-	<section class="h-100">
+	<section class="h-100 ">
 		<div class="container h-100">
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
-					<div class="card fat">
-						<div class="card-body">
-							<!--<h4 class="card-title">Login</h4>-->
+					<div class="card fat ">
+						<div class="card-body ">
 							<form method="POST" class="my-login-validation" novalidate="">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 								<div class="form-group">

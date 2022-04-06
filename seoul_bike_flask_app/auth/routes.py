@@ -1,10 +1,15 @@
+"""
+# @File    :    routes.py
+# @Time    :    22/02/2022 13:52
+# @Author  :    Xinyao Qian
+# @SN      :    19021373
+# @Description:   The routes defined in auth.
+"""
 from urllib.parse import urlparse, urljoin
-
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask import request
 from flask_login import login_required, login_user, current_user, logout_user
 from sqlalchemy.exc import IntegrityError
-
 from seoul_bike_flask_app import db
 from seoul_bike_flask_app import login_manager
 from seoul_bike_flask_app.auth.forms import SignupForm, LoginForm
@@ -84,7 +89,7 @@ def logout():
 @auth_bp.route("/profile")
 @login_required
 def profile():
-    return render_template("profile.html")
+    return render_template("profile.html", title='Profile')
 
 
 @auth_bp.route("/blog/submit_post", methods=["GET", "POST"])
@@ -108,8 +113,9 @@ def submit_post():
                 flash(f"You are create new blog")
             except Exception as e:
                 print("E: ", e)
+        return redirect("/blog")
 
-    return render_template("blog_post.html")
+    return render_template("blog_submit.html", title='New Blog')
 
 
 @auth_bp.route("/blog", methods=["GET", "POST"])
@@ -125,7 +131,7 @@ def blog():
     else:
         blogs = Blog.query.filter()
 
-    return render_template("blog.html", blogs=blogs)
+    return render_template("blog.html", blogs=blogs, title='Blog')
 
 
 @auth_bp.route("/blog/<post_id>", methods=["GET", "POST"])
@@ -157,14 +163,14 @@ def post_id(post_id):
         db.session.commit()
         return redirect("/blog/" + post_id)
 
-    return render_template("post_id.html", blog=blog)
+    return render_template("post_contents.html", blog=blog)
 
 
 def is_safe_url(target):
     host_url = urlparse(request.host_url)
     redirect_url = urlparse(urljoin(request.host_url, target))
     return redirect_url.scheme in (
-    'http', 'https') and host_url.netloc == redirect_url.netloc
+        'http', 'https') and host_url.netloc == redirect_url.netloc
 
 
 def get_safe_redirect():

@@ -1,15 +1,18 @@
-"""Flask config class."""
+
+"""
+# @File    :    config.py
+# @Time    :    24/03/2022 01:36
+# @Author  :    Xinyao Qian
+# @SN      :    19021373
+# @Description: Flask config class
+"""
 import pathlib
 
 
 class Config(object):
     '''
-    This is a teaching instruction and not a docstring for the function!
-    Try the following code in a Python console to generate your own secret key and then past it below where it
-    currently says 'generate_a_secret_key'. This uses secrets: https://docs.python.org/3/library/secrets.html
+    flask app config
 
-    import secrets
-    print(secrets.token_urlsafe(16))
     '''
     SECRET_KEY = 'generate_a_secret_key'
     WTF_CSRF_SECRET_KEY = "crFAuXFCPKbKWw8JAKfnSA"

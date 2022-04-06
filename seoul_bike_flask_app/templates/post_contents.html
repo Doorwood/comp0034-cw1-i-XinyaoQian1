@@ -1,0 +1,50 @@
+{% extends 'blog_template.html' %}
+
+{% block content %}
+    <style>
+        .stars {
+            text-align: right;
+        }
+
+        .stars a {
+            font-size: 35px;
+            cursor: pointer;
+        }
+
+        .stars_high {
+            color: deeppink;
+        }
+    </style>
+
+    <div class="card">
+        <div class="card-body text-center">
+            <h4 class="card-title ">{{ blog.title }}</h4>
+            <p class="card-text">
+            <div class="row">
+                <div class="col">
+                    Author: {{ blog.user_list.all()[0].email }}
+                </div>
+                <div class="col">
+                    {{ blog.create_datetime|strf_datetime("%Y-%m-%d") }}</div>
+            </div>
+            </p>
+        </div>
+
+
+    </div>
+
+    <div class="card ">
+        <div class="card-bodyr">
+            <p class="card-text p-4">
+                {{ blog.content }}
+        </div>
+
+    </div>
+			<div class="stars">
+				{% for i in range(5) %}
+					<a class="{% if blog.count > i %}stars_high{% endif %}" href="{{ url_for('auth.post_id',post_id=blog.id) }}?star_index={{ i+1 }}">☆</a>
+				{% endfor %}
+			</div>
+
+
+{% endblock %}

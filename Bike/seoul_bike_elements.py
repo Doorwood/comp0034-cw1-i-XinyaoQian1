@@ -47,24 +47,24 @@ def nav_bar():
                         align="center",
                         className="g-0",
                     ),
-                    href="https://www.bikeseoul.com:457/main.do?lang=en",
+                    href="http://127.0.0.1:5050",
                     style={"textDecoration": "none"},
                 ),
-                dbc.NavLink("View Profile", href="/l/components/nav",
+                dbc.NavLink("Back to Home", href="http://127.0.0.1:5050/",
                             active=True),
-                dbc.NavLink("Dashboards", href="/l/components/nav",
-                            active=True),
-                dbc.NavLink("Reports", href="/l/components/nav",
-                            active=True),
+                # dbc.NavLink("Dashboards", href="/l/components/nav",
+                #             active=True),
+                # dbc.NavLink("Reports", href="/l/components/nav",
+                #             active=True),
 
                 dbc.NavbarToggler(id="navbar-toggler", n_clicks=0),
 
-                dbc.Collapse(
-                    search_bar,
-                    id="navbar-collapse",
-                    is_open=False,
-                    navbar=True,
-                ),
+                # dbc.Collapse(
+                #     search_bar,
+                #     id="navbar-collapse",
+                #     is_open=False,
+                #     navbar=True,
+                # ),
 
             ]
         ),
