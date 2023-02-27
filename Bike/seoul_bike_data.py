@@ -8,6 +8,7 @@
 from pathlib import Path
 
 import pandas as pd
+import os
 
 
 class Data:
@@ -32,9 +33,9 @@ class Data:
         get data from csv file
 
         """
-        datafolder = Path('../data')
+        datafolder = Path('data')
         csvfile = 'Prepared_data.csv'
-        self.data = pd.read_csv(datafolder / csvfile)
+        self.data = pd.read_csv(os.path.join(datafolder / csvfile))
         self.data['Date'] = pd.to_datetime(self.data['Date'], format='%Y-%m-%d')
         self.data['month'] = self.data['Date'].dt.month
 
